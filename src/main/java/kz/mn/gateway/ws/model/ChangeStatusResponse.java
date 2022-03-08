@@ -25,8 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="messageInfo" type="{http://www.decisive.mn.kz}MessageInfo"/&gt;
- *         &lt;element name="messageData" type="{http://www.decisive.mn.kz}MessageData"/&gt;
+ *         &lt;element name="ok" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,63 +36,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "messageInfo",
-    "messageData"
+    "ok"
 })
-@XmlRootElement(name = "IncomingRequest")
-public class IncomingRequest {
+@XmlRootElement(name = "ChangeStatusResponse")
+public class ChangeStatusResponse {
 
     @XmlElement(required = true)
-    protected MessageInfo messageInfo;
-    @XmlElement(required = true)
-    protected MessageData messageData;
+    protected String ok;
 
     /**
-     * Gets the value of the messageInfo property.
+     * Gets the value of the ok property.
      * 
      * @return
      *     possible object is
-     *     {@link MessageInfo }
+     *     {@link String }
      *     
      */
-    public MessageInfo getMessageInfo() {
-        return messageInfo;
+    public String getOk() {
+        return ok;
     }
 
     /**
-     * Sets the value of the messageInfo property.
+     * Sets the value of the ok property.
      * 
      * @param value
      *     allowed object is
-     *     {@link MessageInfo }
+     *     {@link String }
      *     
      */
-    public void setMessageInfo(MessageInfo value) {
-        this.messageInfo = value;
-    }
-
-    /**
-     * Gets the value of the messageData property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link MessageData }
-     *     
-     */
-    public MessageData getMessageData() {
-        return messageData;
-    }
-
-    /**
-     * Sets the value of the messageData property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link MessageData }
-     *     
-     */
-    public void setMessageData(MessageData value) {
-        this.messageData = value;
+    public void setOk(String value) {
+        this.ok = value;
     }
 
 }

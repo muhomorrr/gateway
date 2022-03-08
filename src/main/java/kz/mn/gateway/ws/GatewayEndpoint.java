@@ -1,6 +1,8 @@
 package kz.mn.gateway.ws;
 
 import kz.mn.gateway.cons.ConsumerClient;
+import kz.mn.gateway.ws.model.ChangeStatusRequest;
+import kz.mn.gateway.ws.model.ChangeStatusResponse;
 import kz.mn.gateway.ws.model.IncomingRequest;
 import kz.mn.gateway.ws.model.IncomingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +24,19 @@ public class GatewayEndpoint {
     @ResponsePayload
     public IncomingResponse saveRequest(@RequestPayload IncomingRequest request) {
         return consumerClient.getMessage(request);
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ChangeStatusRequest")
+    @ResponsePayload
+    public ChangeStatusResponse saveRequest(@RequestPayload ChangeStatusRequest request) {
+        ChangeStatusResponse changeStatusResponse = new ChangeStatusResponse();
+        changeStatusResponse.setOk("ok");
+        System.out.println("Request changed status!");
+        System.out.println("Request ID: " + request.getRequestId());
+        System.out.println("Request Content: " + request.getContent());
+        System.out.println("Request New Status: " + request.getStatus());
+        System.out.println("Request Sender: " + request.getIin() + " " + request.getLastname() + " "
+                + request.getFirstname() + " " + request.getPatronymic());
+        return changeStatusResponse;
     }
 }
