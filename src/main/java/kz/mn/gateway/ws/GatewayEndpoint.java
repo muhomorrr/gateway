@@ -1,11 +1,7 @@
 package kz.mn.gateway.ws;
 
 import kz.mn.gateway.cons.ConsumerClient;
-import kz.mn.gateway.ws.model.ChangeStatusRequest;
-import kz.mn.gateway.ws.model.ChangeStatusResponse;
-import kz.mn.gateway.ws.model.IncomingRequest;
-import kz.mn.gateway.ws.model.IncomingResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import kz.mn.gateway.ws.model.*;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -28,15 +24,17 @@ public class GatewayEndpoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "ChangeStatusRequest")
     @ResponsePayload
-    public ChangeStatusResponse saveRequest(@RequestPayload ChangeStatusRequest request) {
-        ChangeStatusResponse changeStatusResponse = new ChangeStatusResponse();
-        changeStatusResponse.setOk("ok");
+    public IncomingResponse saveRequest(@RequestPayload ChangeStatusRequest request) {
+        IncomingResponse incomingResponse = new IncomingResponse();
+        ResponseInfo responseInfo = new ResponseInfo();
+        responseInfo.setRequestId(request.getMessageInfo().getId());
+        responseInfo.setStatus("OK");
+        incomingResponse.setInfo(responseInfo);
         System.out.println("Request changed status!");
-        System.out.println("Request ID: " + request.getRequestId());
-        System.out.println("Request Content: " + request.getContent());
-        System.out.println("Request New Status: " + request.getStatus());
-        System.out.println("Request Sender: " + request.getIin() + " " + request.getLastname() + " "
-                + request.getFirstname() + " " + request.getPatronymic());
-        return changeStatusResponse;
+        System.out.println("Request ID: " + request.getMessageInfo().getId());
+        System.out.println("Request Sender: " + request.getMessageInfo().getSender());
+        System.out.println("Request Reciever: " + request.getMessageInfo().getReceiver());
+        System.out.println("Request Status: " + request.getMessageData().getStatus());
+        return incomingResponse;
     }
 }
